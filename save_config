@@ -3,29 +3,32 @@
 home="$HOME"
 dotDir="${home}/dev/dot"
 
+YELLOW="\033[0;33m"
+GREEN="\033[0;32m"
+ENDCOLOR="\033[0m"
+
 cp "${home}/.wezterm.lua" "${dotDir}/.wezterm.lua"
-echo ".wezterm.lua copied successfully"
+echo -e "${GREEN}.wezterm.lua copied successfully${ENDCOLOR}"
 
 cp "${home}/.bashrc" "${dotDir}/.bashrc"
-echo ".bashrc copied successfully"
+echo -e "${GREEN}.bashrc copied successfully${ENDCOLOR}"
 
 cp "${home}/.dircolors" "${dotDir}/.dircolors"
-echo ".dircolors copied successfully"
+echo -e "${GREEN}.dircolors copied successfully${ENDCOLOR}"
 
 cp "${home}/.tmux.conf" "${dotDir}/.tmux.conf"
-echo ".tmux.conf copied successfully"
+echo -e "${GREEN}.tmux.conf copied successfully${ENDCOLOR}"
 
 cp -r "${home}/.config/nvim" "${dotDir}/nvim"
-echo "nvim copied successfully"
+echo -e "${GREEN}nvim copied successfully${ENDCOLOR}"
 
-cd ${dotDir}
+cd "${dotDir}" || exit
 
 git add .
 
 if ! git diff --cached --quiet; then
     git commit -m "Auto update from script"
     git push 
-    echo "Changes commited"
 else
-    echo "No changes to commit"
+    echo -e "${YELLOW}No changes to commit${ENDCOLOR}"
 fi
