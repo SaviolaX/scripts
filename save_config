@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+home="$HOME"
+dotDir="${home}/dev/dot"
+
+cp "${home}/.wezterm.lua" "${dotDir}/.wezterm.lua"
+echo ".wezterm.lua copied successfully"
+
+cp "${home}/.bashrc" "${dotDir}/.bashrc"
+echo ".bashrc copied successfully"
+
+cp "${home}/.dircolors" "${dotDir}/.dircolors"
+echo ".dircolors copied successfully"
+
+cp "${home}/.tmux.conf" "${dotDir}/.tmux.conf"
+echo ".tmux.conf copied successfully"
+
+cp -r "${home}/.config/nvim" "${dotDir}/nvim"
+echo "nvim copied successfully"
+
+cd ${dotDir}
+
+git add .
+
+if ! git diff --cached --quiet; then
+    git commit -m "Auto update from script"
+    git push 
+    echo "Changes commited"
+else
+    echo "No changes to commit"
+fi
